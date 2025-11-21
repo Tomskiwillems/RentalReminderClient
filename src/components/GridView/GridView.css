@@ -1,0 +1,59 @@
+.grid-view {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.grid-view th,
+.grid-view td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e6e6e6;
+    text-align: left;
+}
+
+
+.grid-view th {
+    background: #f3f6fa;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+.grid-view th.sortable:hover {
+    background: #e8eff7;
+}
+
+
+.sort-indicator {
+    font-size: 0.7rem;
+    margin-left: 6px;
+    opacity: 0.4;
+}
+
+
+.sort-indicator.active {
+    opacity: 1;
+}
+
+
+.grid-view tbody tr:hover {
+    background: #f9fbff;
+}
+
+
+.selected-row {
+    background: #e6f0ff !important;
+}
+
+
+.empty-cell {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
