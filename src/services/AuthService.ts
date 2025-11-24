@@ -1,8 +1,11 @@
-import { RegisterResponse } from "../types/dto";
+import { RegisterResponse, LoginResponse } from "../types/dto";
 
 const API_BASE_URL = 'http://localhost:8080/api';
 
-export async function login(email: string, password: string): Promise<string> {
+export async function login(
+    email: string,
+    password: string
+): Promise<LoginResponse> {
     const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
@@ -11,13 +14,12 @@ export async function login(email: string, password: string): Promise<string> {
         body: JSON.stringify({ email, password }),
     });
 
-    if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        throw new Error(errorData?.message || "Login failed");
-    }
+    const data = await response.json();
 
-    // If login still returns plain text:
-    return response.text();
+    if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+    }
+    return data;
 }
 
 export async function register(
@@ -36,9 +38,8 @@ export async function register(
     const data = await response.json();
 
     if (!response.ok) {
-        // Backend returns: { message: "error message" }
         throw new Error(data.message || "Register failed");
     }
 
-    return data; // typed as RegisterResponse
+    return data;
 }

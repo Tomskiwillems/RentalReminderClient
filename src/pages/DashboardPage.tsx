@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import LinkBox from "./../components/LinkBox/LinkBox";
 import GridView, { GridColumn } from "./../components/GridView/GridView";
 import "./DashboardPage.css";
@@ -10,8 +10,8 @@ import "./DashboardPage.css";
 
 const DashboardPage: React.FC = () => {
 // const navigate = useNavigate();
-
-
+    const [borrowedGoods, setBorrowedGoods] = useState([]);
+    const [lentGoods, setLentGoods] = useState([]);
     const columns: GridColumn[] = [
         { header: "Contact", field: "contact" },
         { header: "Good", field: "good" },
@@ -20,15 +20,47 @@ const DashboardPage: React.FC = () => {
         { header: "Start Date", field: "startDate" },
     ];
 
+    useEffect(() => {
+        fetch("/api/dashboard", {
+            method: "GET",
+            credentials: "include"
+        })
+            .then(async res => {
+                console.log("Dashboard Response Status:", res.status);
+
+                if (!res.ok) {
+                    const text = await res.text();
+                    throw new Error(`HTTP ${res.status}: ${text}`);
+                }
+
+                return res.json();
+            })
+            .then(data => {
+                console.log("Dashboard data:", data);
+                setBorrowedGoods(data.borrowedGoods);
+                setLentGoods(data.lentGoods);
+            })
+            .catch(err => {
+                console.error("Dashboard request failed:", err);
+            });
+    }, []);
+
 
     return (
         <div className="dashboard-page-container">
             {/* Top Navigation Buttons */}
-            <div className="dashboard-top-buttons">
-                <button className="dashboard-nav-button" /*onClick={() => navigate('/contacts')}*/>Contacts</button>
-                <button className="dashboard-nav-button" /*onClick={() => navigate('/items')}*/>Items</button>
-                <button className="dashboard-nav-button" /*onClick={() => navigate('/currencies')}*/>Currencies</button>
-                <button className="dashboard-logout-button" /*onClick={() => navigate('/logout')}*/>Logout</button>
+            <div className="dashboard-top-bar">
+
+                <div className="dashboard-top-left">
+                    <button className="dashboard-nav-button">Contacts</button>
+                    <button className="dashboard-nav-button">Items</button>
+                    <button className="dashboard-nav-button">Currencies</button>
+                </div>
+
+                <div className="dashboard-top-right">
+                    <button className="dashboard-logout-button">Logout</button>
+                </div>
+
             </div>
 
 
@@ -37,7 +69,12 @@ const DashboardPage: React.FC = () => {
                 <LinkBox navigateTo="/borrowedGoods">
                     <div className="dashboard-goods-box">
                         <h3 className="dashboard-goods-title">Borrowed goods</h3>
-                        <GridView columns={columns} sortEnabled={true} selectEnabled={false} />
+                        <GridView
+                            columns={columns}
+                            data={borrowedGoods}
+                            sortEnabled={true}
+                            selectEnabled={false}
+                        />
                     </div>
                 </LinkBox>
 
@@ -45,7 +82,13 @@ const DashboardPage: React.FC = () => {
                 <LinkBox navigateTo="/lentGoods">
                     <div className="dashboard-goods-box">
                         <h3 className="dashboard-goods-title">Lent goods</h3>
-                        <GridView columns={columns} sortEnabled={true} selectEnabled={false} />
+                        <GridView
+                            columns={columns}
+                            data={lentGoods}
+                            sortEnabled={true}
+                            selectEnabled={false}
+                        />
+
                     </div>
                 </LinkBox>
             </div>
@@ -53,12 +96,17 @@ const DashboardPage: React.FC = () => {
 
             {/* Bottom Add Buttons */}
             <div className="dashboard-bottom-buttons">
-                <button className="dashboard-add-button" /*onClick={() => navigate('/addBorrowedGood')}*/>
-                    Add borrowed good
-                </button>
-                <button className="dashboard-add-button" /*onClick={() => navigate('/addLentGood')}*/>
-                    Add lent good
-                </button>
+                <div className="dashboard-bottom-column">
+                    <button className="dashboard-add-button">
+                        Add borrowed good
+                    </button>
+                </div>
+
+                <div className="dashboard-bottom-column">
+                    <button className="dashboard-add-button">
+                        Add lent good
+                    </button>
+                </div>
             </div>
         </div>
     );

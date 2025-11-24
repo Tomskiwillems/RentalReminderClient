@@ -10,16 +10,26 @@
     gap: 25px;
 }
 
-
 /* Top Buttons */
-.dashboard-top-buttons {
-    display: flex;
-    gap: 15px;
+.dashboard-top-bar {
     width: 100%;
-    max-width: 900px;
-    justify-content: center;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
+/* Left group of navigation buttons */
+.dashboard-top-left {
+    display: flex;
+    gap: 12px;
+}
+
+/* Right side: logout button only */
+.dashboard-top-right {
+    display: flex;
+}
 
 .dashboard-nav-button {
     padding: 10px 18px;
@@ -33,11 +43,9 @@
     transition: background-color 0.3s ease;
 }
 
-
 .dashboard-nav-button:hover {
     background-color: #357abd;
 }
-
 
 .dashboard-logout-button {
     padding: 10px 18px;
@@ -51,41 +59,39 @@
     transition: background-color 0.3s ease;
 }
 
-
 .dashboard-logout-button:hover {
     background-color: #b23b37;
 }
 
-
 /* Goods Section */
 .dashboard-goods-section {
     display: flex;
-    gap: 25px;
+    gap: 30px;
     width: 100%;
     max-width: 1100px;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: flex-start;
 }
-
 
 .dashboard-goods-box {
     width: 100%;
     max-width: 520px;
-    background: #ffffff;
-    padding: 20px;
+    background: white;
+    padding: 22px;
     border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
-
 
 .dashboard-goods-title {
     margin-bottom: 12px;
     font-size: 1.4rem;
     font-weight: 600;
-    text-align: center;
+    text-align: left;
 }
-
 
 /* Bottom Buttons */
 .dashboard-bottom-buttons {
@@ -94,4 +100,32 @@
     justify-content: center;
     width: 100%;
     margin-top: 10px;
+}
+
+.dashboard-bottom-buttons {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    justify-content: center;
+    margin-top: -10px; /* optional spacing tweak */
+}
+
+.dashboard-bottom-column {
+    width: 100%;
+    max-width: 520px; /* SAME as goods-box width for perfect alignment */
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard-add-button {
+    padding: 10px 18px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
