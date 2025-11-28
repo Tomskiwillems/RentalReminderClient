@@ -1,15 +1,57 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import AuthChecker from './services/AuthChecker';
+import {
+    LoginPage,
+    RegisterPage,
+    DashboardPage,
+    BorrowedGoodsPage,
+    LentGoodsPage,
+    ContactsPage,
+    ItemsPage,
+    CurrenciesPage,
+    AddContactPage,
+    EditContactPage,
+    AddItemPage,
+    EditItemPage,
+    AddCurrencyPage,
+    EditCurrencyPage,
+    AddBorrowedGoodPage
+} from "./pages";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
+                {/* Public routes */}
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
+
+                {/* Auth-protected routes */}
+                <Route element={<AuthChecker />}>
+                    <Route path="/" element={<DashboardPage />} />
+                    <Route path="/dashboard" element={<DashboardPage />} />
+
+                    <Route path="/borrowed-goods" element={<BorrowedGoodsPage />} />
+                    <Route path="/borrowed-goods/add" element={<AddBorrowedGoodPage />} />
+
+                    <Route path="/lent-goods" element={<LentGoodsPage />} />
+
+                    <Route path="/contacts" element={<ContactsPage />} />
+                    <Route path="/contacts/add" element={<AddContactPage />} />
+                    <Route path="/contacts/edit/:id" element={<EditContactPage />} />
+
+                    <Route path="/items" element={<ItemsPage />} />
+                    <Route path="/items/add" element={<AddItemPage />} />
+                    <Route path="/items/edit/:id" element={<EditItemPage />} />
+
+                    <Route path="/currencies" element={<CurrenciesPage />} />
+                    <Route path="/currencies/add" element={<AddCurrencyPage />} />
+                    <Route path="/currencies/edit/:id" element={<EditCurrencyPage />} />
+
+                </Route>
+
+                {/* Fallback — if no route matches */}
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </BrowserRouter>
     );

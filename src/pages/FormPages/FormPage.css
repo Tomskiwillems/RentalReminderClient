@@ -1,0 +1,83 @@
+.form-page-container .object-page-layout .object-grid-box {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-field-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.form-label {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.form-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.form-textarea {
+    padding: 10px;
+    font-size: 16px;
+    min-height: 120px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+}
+
+.form-field-group-inline {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.form-field-group-inline > div {
+    flex: 1;
+}
+
+.form-field-group-inline .form-label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.tab-container {
+    display: flex;
+    gap: 10px;
+    margin: 6px 0 10px 0;
+}
+
+.tab-button {
+    padding: 10px 18px;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.15s;
+}
+
+.tab-button:hover {
+    background-color: #e7e7e7;
+}
+
+.tab-button.active {
+    background-color: #d9d9d9;
+    border-color: #999;
+    font-weight: 600;
+}
+
+.tab-content {
+    background: #fafafa;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 18px;
+}

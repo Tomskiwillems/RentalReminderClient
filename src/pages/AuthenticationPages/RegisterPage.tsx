@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormBox from "../components/FormBox/FormBox";
-import AuthFooter from "../components/AuthFooter/AuthFooter";
-import { register } from "../services/AuthService";
+import FormBox from "../../components/FormBox/FormBox";
+import AuthFooter from "../../components/AuthFooter/AuthFooter";
+import { register } from "../../services/AuthService";
 import "./AuthenticationPage.css";
 
 const RegisterPage: React.FC = () => {
@@ -26,7 +26,7 @@ const RegisterPage: React.FC = () => {
             // Wait 2 seconds then navigate
             setTimeout(() => {
                 navigate("/login");
-            }, 2000);
+            }, 1000);
         } catch (error: any) {
             const errorMsg =
                 error?.response?.data || error?.message || "Registration failed";

@@ -1,0 +1,137 @@
+.object-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: #f7f8fa;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 25px;
+}
+
+/* TOP BAR */
+.object-top-bar {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.object-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.object-back-button {
+    padding: 10px 18px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* GRID BOX */
+.object-grid-box {
+    width: 100%;
+    max-width: 1100px;
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    box-sizing: border-box;
+}
+
+/* BOTTOM BUTTONS */
+.object-bottom-buttons {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.object-action-button {
+    padding: 10px 18px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.object-action-button:disabled {
+    cursor: not-allowed;
+}
+
+.object-delete-button {
+    padding: 10px 18px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.object-delete-button:disabled {
+    cursor: not-allowed;
+}
+
+.object-confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.object-confirm-box {
+    background: white;
+    padding: 24px;
+    width: 380px;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    text-align: center;
+}
+
+.object-confirm-text {
+    font-size: 18px;
+    margin-bottom: 22px;
+}
+
+.object-confirm-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.object-confirm-yes {
+    padding: 10px 18px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.object-confirm-no {
+    padding: 10px 18px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}

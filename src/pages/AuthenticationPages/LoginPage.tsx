@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormBox from "../components/FormBox/FormBox";
-import AuthFooter from "../components/AuthFooter/AuthFooter";
-import { login } from "../services/AuthService";
+import FormBox from "../../components/FormBox/FormBox";
+import AuthFooter from "../../components/AuthFooter/AuthFooter";
+import { login } from "../../services/AuthService";
 import "./AuthenticationPage.css";
 
 const LoginPage: React.FC = () => {
@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
             // Wait 2 seconds then navigate
             setTimeout(() => {
                 navigate("/dashboard");
-            }, 2000);
+            }, 1000);
         } catch (error: any) {
             const errorMsg =
                 error?.response?.data || error?.message || "Login failed";
