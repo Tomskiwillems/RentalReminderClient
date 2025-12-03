@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FormBox from "../../components/FormBox/FormBox";
 import AuthFooter from "../../components/AuthFooter/AuthFooter";
 import { login } from "../../services/AuthService";
+import { LoginResponse } from "../../types/authentication"; // import your interface
 import "./AuthenticationPage.css";
 
 const LoginPage: React.FC = () => {
@@ -18,15 +19,17 @@ const LoginPage: React.FC = () => {
         setSuccessMessage("");
 
         try {
-            const response = await login(email, password);
+            // Type the response using LoginResponse
+            const response: LoginResponse = await login(email, password);
             setSuccessMessage(response.message);
-            // Wait 2 seconds then navigate
+
+            // Wait 1 second then navigate
             setTimeout(() => {
                 navigate("/dashboard");
             }, 1000);
         } catch (error: any) {
             const errorMsg =
-                error?.response?.data || error?.message || "Login failed";
+                error?.response?.data?.message || error?.message || "Login failed";
             setErrorMessage(errorMsg);
         }
     };
@@ -34,9 +37,10 @@ const LoginPage: React.FC = () => {
     return (
         <div className="page-container">
             <div className="auth-wrapper">
-                <FormBox title="Rental Reminder"
-                         message={errorMessage || successMessage}
-                         messageType={successMessage ? "success" : "error"}
+                <FormBox
+                    title="Rental Reminder"
+                    message={errorMessage || successMessage}
+                    messageType={successMessage ? "success" : "error"}
                 >
                     <form onSubmit={handleSubmit} className="form-content">
                         <input

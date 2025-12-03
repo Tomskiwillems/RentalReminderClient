@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BaseFormPage } from "./BaseFormPage";
-import { BorrowedGoodAddDataResponse } from "../../types/borrowedgood";
+import { LentGoodAddDataResponse } from "../../types/lentgood";
 import { ContactResponse } from "../../types/contact";
 import { ItemResponse } from "../../types/item";
 import { CurrencyResponse } from "../../types/currency";
 import TabSwitcher from "../../components/TabSwitcher/TabSwitcher";
 
-type BorrowedGoodForm = {
+type LentGoodForm = {
     contactId: number | "";
     type: "item" | "currency";
     amount: number;
@@ -15,7 +15,7 @@ type BorrowedGoodForm = {
     endDate?: string;
 };
 
-const initialForm: BorrowedGoodForm = {
+const initialForm: LentGoodForm = {
     contactId: "",
     type: "item",
     amount: 1,
@@ -24,31 +24,30 @@ const initialForm: BorrowedGoodForm = {
     endDate: ""
 };
 
-const AddBorrowedGoodPage: React.FC = () => {
+const AddLentGoodPage: React.FC = () => {
     const [contacts, setContacts] = useState<ContactResponse[]>([]);
     const [items, setItems] = useState<ItemResponse[]>([]);
     const [currencies, setCurrencies] = useState<CurrencyResponse[]>([]);
 
     useEffect(() => {
-        fetch("/api/borrowed-goods/add/data", { credentials: "include" })
+        fetch("/api/lent-goods/add/data", { credentials: "include" })
             .then((r) => r.json())
-            .then((res: BorrowedGoodAddDataResponse) => {
+            .then((res: LentGoodAddDataResponse) => {
                 setContacts(res.contacts ?? []);
                 setItems(res.items ?? []);
                 setCurrencies(res.currencies ?? []);
             })
-            .catch((err) => console.error("Failed to load borrowed good data", err));
+            .catch((err) => console.error("Failed to load lent good data", err));
     }, []);
 
     return (
-        <BaseFormPage<BorrowedGoodForm, BorrowedGoodAddDataResponse>
-            title="Add Borrowed Good"
+        <BaseFormPage<LentGoodForm, LentGoodAddDataResponse>
+            title="Add Lent Good"
             submitLabel="Add"
-            navigateTo="/borrowed-goods"
+            navigateTo="/lent-goods"
             initialForm={initialForm}
-            saveUrl="/api/borrowed-goods/add"
+            saveUrl="/api/lent-goods/add"
             renderForm={(form, setForm) => {
-
                 const clearOppositeTabFields = (newType: "item" | "currency") => {
                     setForm((prev) => ({
                         ...prev,
@@ -161,7 +160,6 @@ const AddBorrowedGoodPage: React.FC = () => {
                 );
             }}
             transformPayload={(form) => {
-                // Convert endDate to LocalDateTime format and remove 'type'
                 const payload = {
                     ...form,
                     endDate: form.endDate ? `${form.endDate}T00:00:00` : null
@@ -173,4 +171,4 @@ const AddBorrowedGoodPage: React.FC = () => {
     );
 };
 
-export default AddBorrowedGoodPage;
+export default AddLentGoodPage;

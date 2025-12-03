@@ -56,11 +56,36 @@ const DashboardPage: React.FC = () => {
             })
             .then(data => {
                 console.log("Dashboard data:", data);
-                setBorrowedGoods(data.gridViewItems.borrowedGoods);
-                setLentGoods(data.gridViewItems.lentGoods);
+
+                const formatDate = (dateStr?: string) =>
+                    dateStr ? new Date(dateStr).toLocaleDateString() : "";
+
+                // Safely map borrowed goods
+                const borrowedGoodsFormatted = (data.borrowedGoodsResponse?.borrowedGoods || []).map((bg: any) => ({
+                    id: bg.id,
+                    contact: bg.contact?.name || "",
+                    good: bg.item?.name || bg.currency?.name || "",
+                    amount: bg.amount || "",
+                    startDate: formatDate(bg.startDate),
+                    endDate: formatDate(bg.endDate)
+                }));
+
+                // Safely map lent goods
+                const lentGoodsFormatted = (data.lentGoodsResponse?.lentGoods || []).map((lg: any) => ({
+                    id: lg.id,
+                    contact: lg.contact?.name || "",
+                    good: lg.item?.name || lg.currency?.name || "",
+                    amount: lg.amount || "",
+                    startDate: formatDate(lg.startDate),
+                    endDate: formatDate(lg.endDate)
+                }));
+
+                setBorrowedGoods(borrowedGoodsFormatted);
+                setLentGoods(lentGoodsFormatted);
             })
             .catch(err => console.error("Dashboard request failed:", err));
     }, [navigate]);
+
 
     return (
         <div className="dashboard-page-container">
@@ -119,10 +144,10 @@ const DashboardPage: React.FC = () => {
             {/* Bottom Add Buttons */}
             <div className="dashboard-bottom-buttons">
                 <div className="dashboard-bottom-column">
-                    <button className="dashboard-add-button">Add borrowed good</button>
+                    <button className="dashboard-add-button" onClick={() => navigate("/borrowed-goods/add")}>Add borrowed good</button>
                 </div>
                 <div className="dashboard-bottom-column">
-                    <button className="dashboard-add-button">Add lent good</button>
+                    <button className="dashboard-add-button" onClick={() => navigate("/lent-goods/add")}>Add lent good</button>
                 </div>
             </div>
         </div>

@@ -1,9 +1,18 @@
-.form-page-container .object-page-layout .object-grid-box {
-    max-width: 600px;
+/* --- Form page wrapper --- */
+.object-page-container {
     width: 100%;
     margin: 0 auto;
 }
 
+/* Make FormBox take full width */
+.object-page-container .form-box {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --- General form field groups --- */
 .form-field-group {
     display: flex;
     flex-direction: column;
@@ -11,27 +20,29 @@
     margin-bottom: 18px;
 }
 
+/* --- Labels --- */
 .form-label {
     font-size: 16px;
     margin-bottom: 6px;
 }
 
-.form-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
+/* --- Inputs and textareas --- */
+.form-input,
 .form-textarea {
     padding: 10px;
     font-size: 16px;
-    min-height: 120px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-textarea {
+    min-height: 120px;
     resize: vertical;
 }
 
+/* --- Inline fields (e.g., amount + dropdown) --- */
 .form-field-group-inline {
     display: flex;
     gap: 20px;
@@ -43,41 +54,13 @@
     flex: 1;
 }
 
-.form-field-group-inline .form-label {
-    display: block;
-    margin-bottom: 6px;
+/* --- Amount input fixed width --- */
+.amount-input {
+    width: 110px;
 }
 
-.tab-container {
-    display: flex;
-    gap: 10px;
-    margin: 6px 0 10px 0;
-}
-
-.tab-button {
-    padding: 10px 18px;
-    background-color: #f3f3f3;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.15s;
-}
-
-.tab-button:hover {
-    background-color: #e7e7e7;
-}
-
-.tab-button.active {
-    background-color: #d9d9d9;
-    border-color: #999;
-    font-weight: 600;
-}
-
-.tab-content {
-    background: #fafafa;
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 18px;
+/* --- Full-width dropdown --- */
+.full-width-dropdown {
+    flex: 1;
+    width: 100%;
 }

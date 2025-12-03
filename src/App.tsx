@@ -15,7 +15,10 @@ import {
     EditItemPage,
     AddCurrencyPage,
     EditCurrencyPage,
-    AddBorrowedGoodPage
+    AddBorrowedGoodPage,
+    EditBorrowedGoodPage,
+    AddLentGoodPage,
+    EditLentGoodPage
 } from "./pages";
 
 function App() {
@@ -33,8 +36,11 @@ function App() {
 
                     <Route path="/borrowed-goods" element={<BorrowedGoodsPage />} />
                     <Route path="/borrowed-goods/add" element={<AddBorrowedGoodPage />} />
+                    <Route path="/borrowed-goods/edit/:id" element={<EditBorrowedGoodPage />} />
 
                     <Route path="/lent-goods" element={<LentGoodsPage />} />
+                    <Route path="/lent-goods/add" element={<AddLentGoodPage />} />
+                    <Route path="/lent-goods/edit/:id" element={<EditLentGoodPage />} />
 
                     <Route path="/contacts" element={<ContactsPage />} />
                     <Route path="/contacts/add" element={<AddContactPage />} />

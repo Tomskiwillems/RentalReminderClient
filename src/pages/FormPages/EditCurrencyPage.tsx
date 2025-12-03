@@ -1,87 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import FormPage from "./FormPage";
+import { BaseFormPage } from "./BaseFormPage";
+import { CurrencyResponse } from "../../types/currency";
+
+type CurrencyForm = {
+    name: string;
+    description?: string;
+};
 
 const EditCurrencyPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const loadCurrency = async () => {
-            try {
-                const response = await fetch(`/api/currency/${id}`);
-                const data = await response.json();
-
-                if (response.ok) {
-                    setName(data.name || "");
-                    setDescription(data.description || "");
-                } else {
-                    console.error("Failed to load currency:", data.message);
-                }
-            } catch {
-                console.error("Network error while loading currency.");
-            }
-
-            setLoading(false);
-        };
-
-        loadCurrency();
-    }, [id]);
-
-    const submitForm = async () => {
-        try {
-            const response = await fetch("/api/currency/edit", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    id,
-                    name,
-                    description,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                return { success: false, message: data.message };
-            }
-
-            return { success: true };
-        } catch {
-            return { success: false, message: "Network error." };
-        }
-    };
-
-    if (loading) return <div className="object-page-container">Loading...</div>;
-
     return (
-        <FormPage
-            title="Edit currency"
+        <BaseFormPage<CurrencyForm, CurrencyResponse>
+            title="Edit Currency"
             submitLabel="Save"
             navigateTo="/currencies"
-            onSubmit={submitForm}
-        >
-            <div className="form-field-group">
-                <label className="form-label">Name</label>
-                <input
-                    className="form-input"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </div>
+            initialForm={{ name: "", description: "" }}
+            loadUrl={id ? `/api/currencies/${id}` : undefined}
+            saveUrl={id ? `/api/currencies/edit/${id}` : "/api/currencies/edit"}
+            mapLoadResponse={(response) => ({
+                name: response.name ?? "",
+                description: response.description ?? ""
+            })}
+            renderForm={(form, setForm) => (
+                <>
+                    <div className="form-field-group">
+                        <label className="form-label">Name</label>
+                        <input
+                            className="form-input"
+                            value={form.name}
+                            onChange={(e) =>
+                                setForm({ ...form, name: e.target.value })
+                            }
+                        />
+                    </div>
 
-            <div className="form-field-group">
-                <label className="form-label">Description</label>
-                <textarea
-                    className="form-textarea"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
-            </div>
-        </FormPage>
+                    <div className="form-field-group">
+                        <label className="form-label">Description</label>
+                        <textarea
+                            className="form-textarea"
+                            value={form.description ?? ""}
+                            onChange={(e) =>
+                                setForm({ ...form, description: e.target.value })
+                            }
+                        />
+                    </div>
+                </>
+            )}
+        />
     );
 };
 

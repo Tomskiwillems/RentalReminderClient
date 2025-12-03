@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FormBox from "../../components/FormBox/FormBox";
 import AuthFooter from "../../components/AuthFooter/AuthFooter";
 import { register } from "../../services/AuthService";
+import { RegisterResponse } from "../../types/authentication";
 import "./AuthenticationPage.css";
 
 const RegisterPage: React.FC = () => {
@@ -19,17 +20,18 @@ const RegisterPage: React.FC = () => {
         setSuccessMessage("");
 
         try {
-            const result = await register(email, password, passwordConfirm);
+            // Use RegisterResponse interface
+            const result: RegisterResponse = await register(email, password, passwordConfirm);
 
             setSuccessMessage(result.message);
 
-            // Wait 2 seconds then navigate
+            // Wait 1 second then navigate
             setTimeout(() => {
                 navigate("/login");
             }, 1000);
         } catch (error: any) {
             const errorMsg =
-                error?.response?.data || error?.message || "Registration failed";
+                error?.response?.data?.message || error?.message || "Registration failed";
             setErrorMessage(errorMsg);
         }
     };
@@ -40,9 +42,9 @@ const RegisterPage: React.FC = () => {
                 <FormBox
                     title="Rental Reminder"
                     message={errorMessage || successMessage}
-                    messageType={successMessage ? "success" : "error"} // <-- use success if available
+                    messageType={successMessage ? "success" : "error"}
                 >
-                <form onSubmit={handleSubmit} className="form-content">
+                    <form onSubmit={handleSubmit} className="form-content">
                         <input
                             type="email"
                             placeholder="Enter your Email"

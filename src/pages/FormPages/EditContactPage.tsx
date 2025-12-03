@@ -1,92 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import FormPage from "./FormPage";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { BaseFormPage } from "./BaseFormPage";
+import { ContactResponse } from "../../types/contact";
+
+type ContactForm = {
+    name: string;
+    description?: string;
+};
 
 const EditContactPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
-
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const loadContact = async () => {
-            try {
-                const response = await fetch(`/api/contacts/${id}`, {
-                    credentials: "include"
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    // Assign values from ContactResponse DTO
-                    setName(data.name ?? "");
-                    setDescription(data.description ?? "");
-                } else {
-                    console.error("Failed to load contact:", data.message);
-                }
-            } catch {
-                console.error("Network error while loading contact.");
-            }
-
-            setLoading(false);
-        };
-
-        loadContact();
-    }, [id]);
-
-    const submitForm = async () => {
-        try {
-            const response = await fetch(`/api/contacts/edit/${id}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({
-                    name,
-                    description
-                }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                return { success: false, message: data.message };
-            }
-
-            return { success: true };
-        } catch {
-            return { success: false, message: "Network error." };
-        }
-    };
-
-    if (loading) return <div className="object-page-container">Loading...</div>;
 
     return (
-        <FormPage
-            title="Edit contact"
+        <BaseFormPage<ContactForm, ContactResponse>
+            title="Edit Contact"
             submitLabel="Save"
             navigateTo="/contacts"
-            onSubmit={submitForm}
-        >
-            <div className="form-field-group">
-                <label className="form-label">Name</label>
-                <input
-                    className="form-input"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </div>
+            initialForm={{ name: "", description: "" }}
+            loadUrl={id ? `/api/contacts/${id}` : undefined}
+            saveUrl={id ? `/api/contacts/edit/${id}` : "/api/contacts/edit"}
+            mapLoadResponse={(response) => ({
+                name: response.name ?? "",
+                description: response.description ?? ""
+            })}
+            renderForm={(form, setForm) => (
+                <>
+                    <div className="form-field-group">
+                        <label className="form-label">Name</label>
+                        <input
+                            className="form-input"
+                            value={form.name}
+                            onChange={(e) =>
+                                setForm({ ...form, name: e.target.value })
+                            }
+                        />
+                    </div>
 
-            <div className="form-field-group">
-                <label className="form-label">Description</label>
-                <textarea
-                    className="form-textarea"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
-            </div>
-        </FormPage>
+                    <div className="form-field-group">
+                        <label className="form-label">Description</label>
+                        <textarea
+                            className="form-textarea"
+                            value={form.description ?? ""}
+                            onChange={(e) =>
+                                setForm({ ...form, description: e.target.value })
+                            }
+                        />
+                    </div>
+                </>
+            )}
+        />
     );
 };
 
