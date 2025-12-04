@@ -10,7 +10,7 @@ export interface LentGoodResponse extends BaseResponseDto {
     currency?: CurrencyResponse;
     amount?: number;
     endDate?: string;
-    startDate: string
+    startDate: string;
 }
 
 export interface LentGoodsResponse extends BaseResponseDto {

@@ -53,7 +53,6 @@ function App() {
                     <Route path="/currencies" element={<CurrenciesPage />} />
                     <Route path="/currencies/add" element={<AddCurrencyPage />} />
                     <Route path="/currencies/edit/:id" element={<EditCurrencyPage />} />
-
                 </Route>
 
                 {/* Fallback — if no route matches */}

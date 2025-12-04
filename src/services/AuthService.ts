@@ -1,6 +1,6 @@
 import { RegisterResponse, LoginResponse } from "../types/authentication";
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export async function login(
     email: string,
@@ -30,6 +30,7 @@ export async function register(
 ): Promise<RegisterResponse> {
     const response = await fetch(`${API_BASE_URL}/register`, {
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },

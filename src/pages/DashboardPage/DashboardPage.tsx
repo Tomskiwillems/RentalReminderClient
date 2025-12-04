@@ -29,15 +29,30 @@ const DashboardPage: React.FC = () => {
         })
             .then(async (res) => {
                 const data = await res.json();
-                setLogoutMessage(data.message);
-                setShowLogoutModal(true); // show modal
-                return new Promise(resolve => setTimeout(resolve, 1000)); // wait 1 sec
+
+                if (!res.ok) {
+                    setLogoutMessage(data.message || "Logout failed");
+                    setShowLogoutModal(true);
+                    return;
+                }
+
+                setLogoutMessage(data.message || "Logged out successfully");
+                setShowLogoutModal(true);
+
+                // Wait 1 second then redirect
+                return new Promise(resolve => setTimeout(resolve, 1000));
             })
             .then(() => {
-                setShowLogoutModal(false); // hide modal
-                navigate("/login"); // redirect
+                if (logoutMessage === "Logged out successfully") {
+                    setShowLogoutModal(false);
+                    navigate("/login"); // redirect on success only
+                }
             })
-            .catch(err => console.error("Logout failed:", err));
+            .catch(err => {
+                console.error("Logout failed:", err);
+                setLogoutMessage("An unexpected error occurred during logout");
+                setShowLogoutModal(true);
+            });
     };
 
     // Fetch dashboard data
@@ -124,6 +139,7 @@ const DashboardPage: React.FC = () => {
                             data={borrowedGoods}
                             sortEnabled={true}
                             selectEnabled={false}
+                            keyboardEnabled={false}
                         />
                     </div>
                 </LinkBox>
@@ -136,6 +152,7 @@ const DashboardPage: React.FC = () => {
                             data={lentGoods}
                             sortEnabled={true}
                             selectEnabled={false}
+                            keyboardEnabled={false}
                         />
                     </div>
                 </LinkBox>

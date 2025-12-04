@@ -19,13 +19,13 @@ const TabSwitcher: React.FC<TabSwitcherProps> = ({ tabs, activeKey, onChange, ch
             {/* --- Tabs Row --- */}
             <div className="tab-switcher-tabs">
                 {tabs.map((tab) => (
-                    <div
+                    <button
                         key={tab.key}
                         className={`tab-switcher-tab ${tab.key === activeKey ? "active" : ""}`}
                         onClick={() => onChange(tab.key)}
                     >
                         {tab.label}
-                    </div>
+                    </button>
                 ))}
             </div>
 

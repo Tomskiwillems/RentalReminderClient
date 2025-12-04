@@ -16,9 +16,9 @@ const LinkBox: React.FC<LinkBoxProps> = ({ children, navigateTo }) => {
     };
 
     return (
-        <div className="link-box" onClick={handleClick}>
+        <button className="link-box" onClick={handleClick}>
             {children}
-        </div>
+        </button>
     );
 };
 

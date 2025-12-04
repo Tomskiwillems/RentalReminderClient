@@ -30,35 +30,37 @@ export function BaseObjectPage<T extends { id: number }, U extends { id: number 
     const [selectedRow, setSelectedRow] = useState<U | null>(null);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
 
+    const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
     // Load API data
     useEffect(() => {
         let mounted = true;
 
         fetch(fetchUrl, { credentials: "include" })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error(`Failed to load ${title}: ${res.statusText}`);
+                return res.json();
+            })
             .then(json => {
-                // automatically find first array field in response
                 const arrayKey = Object.keys(json).find(k => Array.isArray((json as any)[k]));
                 const items = arrayKey ? ((json as any)[arrayKey] as T[]) : [];
 
                 if (!mounted) return;
 
                 setRawData(items);
-
-                if (transformData) {
-                    setData(items.map(transformData));
-                } else {
-                    setData(items as unknown as U[]);
-                }
+                setData(transformData ? items.map(transformData) : (items as unknown as U[]));
+                setMessage(null); // clear previous messages
             })
-            .catch(() => {
+            .catch(err => {
+                console.error(err);
                 if (!mounted) return;
                 setRawData([]);
                 setData([]);
+                setMessage({ type: 'error', text: err.message });
             });
 
         return () => { mounted = false; };
-    }, [fetchUrl, transformData]);
+    }, [fetchUrl, transformData, title]);
 
     // Delete row handlers
     const handleDeleteClick = () => {
@@ -69,15 +71,25 @@ export function BaseObjectPage<T extends { id: number }, U extends { id: number 
         if (!selectedRow) return;
 
         try {
-            await fetch(deleteUrl(selectedRow.id), {
+            const res = await fetch(deleteUrl(selectedRow.id), {
                 method: "DELETE",
                 credentials: "include"
             });
-        } catch {}
 
-        setData(prev => prev.filter(i => i.id !== selectedRow.id));
-        setRawData(prev => prev.filter(i => i.id !== selectedRow.id));
-        setSelectedRow(null);
+            if (!res.ok) {
+                const data = await res.json().catch(() => null);
+                throw new Error(data?.message || `Failed to delete item (status ${res.status})`);
+            }
+
+            setData(prev => prev.filter(i => i.id !== selectedRow.id));
+            setRawData(prev => prev.filter(i => i.id !== selectedRow.id));
+            setSelectedRow(null);
+            setMessage({ type: 'success', text: 'Item deleted successfully' });
+        } catch (err: any) {
+            console.error(err);
+            setMessage({ type: 'error', text: err.message || 'Delete failed' });
+        }
+
         setShowDeletePopup(false);
     };
 
@@ -120,6 +132,12 @@ export function BaseObjectPage<T extends { id: number }, U extends { id: number 
             setShowDeletePopup={setShowDeletePopup}
             onConfirmDelete={confirmDelete}
         >
+            {message && (
+                <div className={`message ${message.type}`}>
+                    {message.text}
+                </div>
+            )}
+
             <GridView
                 columns={columns}
                 data={data}

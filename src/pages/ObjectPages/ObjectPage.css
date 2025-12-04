@@ -45,6 +45,30 @@
     box-sizing: border-box;
 }
 
+/* MESSAGES */
+.message {
+    width: 100%;
+    max-width: 1100px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.message.success {
+    background-color: #e6ffed;
+    color: #256029;
+    border: 1px solid #a6d8a8;
+}
+
+.message.error {
+    background-color: #ffe6e6;
+    color: #8b1c1c;
+    border: 1px solid #e09a9a;
+}
+
 /* BOTTOM BUTTONS */
 .object-bottom-buttons {
     width: 100%;
@@ -63,10 +87,17 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.object-action-button:hover:not(:disabled) {
+    background-color: #357ab8;
 }
 
 .object-action-button:disabled {
     cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #a0c4e8;
 }
 
 .object-delete-button {
@@ -78,12 +109,20 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.object-delete-button:hover:not(:disabled) {
+    background-color: #b52b25;
 }
 
 .object-delete-button:disabled {
     cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #e09a9a;
 }
 
+/* CONFIRM POPUP */
 .object-confirm-overlay {
     position: fixed;
     top: 0;
