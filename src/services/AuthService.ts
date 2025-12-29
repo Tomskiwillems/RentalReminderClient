@@ -1,6 +1,9 @@
 import { RegisterResponse, LoginResponse } from "../types/authentication";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+// Use relative paths - proxy will handle routing to backend
+// Development: setupProxy.js proxies /api/* to localhost:8080
+// Production: Express server proxies /api/* to backend URL
+const API_BASE_URL = '/api';
 
 export async function login(
     email: string,
@@ -8,10 +11,10 @@ export async function login(
 ): Promise<LoginResponse> {
     const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
-        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: "include", // Important: include cookies
         body: JSON.stringify({ email, password }),
     });
 
@@ -30,10 +33,10 @@ export async function register(
 ): Promise<RegisterResponse> {
     const response = await fetch(`${API_BASE_URL}/register`, {
         method: "POST",
-        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: "include", // Important: include cookies
         body: JSON.stringify({ email, password, passwordConfirm }),
     });
 
