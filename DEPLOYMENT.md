@@ -172,3 +172,4 @@ To test the production setup locally:
 
 **Important:** After these changes, cookies will work because the browser sees all requests as same-origin (coming from the frontend domain), even though they're actually proxied to the backend.
 
+

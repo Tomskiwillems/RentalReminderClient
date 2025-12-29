@@ -14,3 +14,4 @@ REACT_APP_BACKEND_URL=https://rentalreminder.onrender.com
 
 The proxy server (server.js) will use this to route /api/* requests to your backend.
 
+
