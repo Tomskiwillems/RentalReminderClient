@@ -1,0 +1,85 @@
+/* GridView.css */
+
+/* Base Table Styles */
+.grid-view {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.95rem;
+    overflow: hidden;
+}
+
+/* Table Cells */
+.grid-view th,
+.grid-view td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e6e6e6;
+    text-align: left;
+}
+
+/* Table Headers */
+.grid-view th {
+    background: #f3f6fa;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    outline: none; /* remove default outline */
+}
+
+/* Hover effect for sortable headers */
+.grid-view th.sortable:hover {
+    background: #e8eff7;
+}
+
+/* Keyboard focus on headers */
+.grid-view th:focus {
+    background: #d0e2ff;
+    outline: 2px solid #1a73e8;
+    outline-offset: -2px;
+}
+
+/* Sort indicators */
+.sort-indicator {
+    font-size: 0.7rem;
+    margin-left: 6px;
+    opacity: 0.4;
+}
+
+.sort-indicator.active {
+    opacity: 1;
+}
+
+/* Table Rows */
+.grid-view tbody tr {
+    transition: background 0.2s ease;
+    outline: none; /* remove default outline */
+}
+
+/* Hover effect for rows */
+.grid-view tbody tr:hover {
+    background: #f9fbff;
+}
+
+/* Selected row */
+.selected-row {
+    background: #e6f0ff !important;
+}
+
+/* Keyboard focus on rows */
+.grid-view tbody tr:focus {
+    background: #d0e2ff;
+    outline: 2px solid #1a73e8;
+    outline-offset: -2px;
+}
+
+/* Empty data cell */
+.empty-cell {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+/* Optional: cursor pointer for selectable rows */
+.grid-view tbody tr[tabindex="0"] {
+    cursor: pointer;
+}

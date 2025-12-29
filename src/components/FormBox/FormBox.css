@@ -1,0 +1,83 @@
+.form-box {
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.form-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.form-message {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.form-message.error {
+    background-color: #ffe5e5;
+    color: #d32f2f;
+}
+
+.form-message.success {
+    background-color: #e5ffe5;
+    color: #2e7d32;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-input {
+    padding: 12px 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    outline-offset: 2px;
+    outline-color: transparent;
+}
+
+.form-input:focus {
+    border-color: #4a90e2;
+    outline-color: #4a90e2;
+    box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
+}
+
+.form-button {
+    padding: 12px 0;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #357ABD;
+}
+
+.form-button:active {
+    background-color: #2a5d91;
+}
+
+@media (max-width: 480px) {
+    .form-box {
+        padding: 16px;
+    }
+    .form-input, .form-button {
+        font-size: 14px;
+    }
+}

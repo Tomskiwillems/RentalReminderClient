@@ -1,0 +1,66 @@
+/* --- Form page wrapper --- */
+.object-page-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Make FormBox take full width */
+.object-page-container .form-box {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --- General form field groups --- */
+.form-field-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+/* --- Labels --- */
+.form-label {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+/* --- Inputs and textareas --- */
+.form-input,
+.form-textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* --- Inline fields (e.g., amount + dropdown) --- */
+.form-field-group-inline {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.form-field-group-inline > div {
+    flex: 1;
+}
+
+/* --- Amount input fixed width --- */
+.amount-input {
+    width: 110px;
+}
+
+/* --- Full-width dropdown --- */
+.full-width-dropdown {
+    flex: 1;
+    width: 100%;
+}

@@ -1,0 +1,159 @@
+.dashboard-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: #f7f8fa;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 25px;
+}
+
+/* Top Buttons */
+.dashboard-top-bar {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Left group of navigation buttons */
+.dashboard-top-left {
+    display: flex;
+    gap: 12px;
+}
+
+/* Right side: logout button only */
+.dashboard-top-right {
+    display: flex;
+}
+
+.dashboard-nav-button {
+    padding: 10px 18px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-nav-button:hover {
+    background-color: #357abd;
+}
+
+.dashboard-logout-button {
+    padding: 10px 18px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-logout-button:hover {
+    background-color: #b23b37;
+}
+
+/* Goods Section */
+.dashboard-goods-section {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.dashboard-goods-box {
+    width: 100%;
+    max-width: 520px;
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.dashboard-goods-title {
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Bottom Buttons */
+.dashboard-bottom-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.dashboard-bottom-buttons {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    justify-content: center;
+    margin-top: -10px; /* optional spacing tweak */
+}
+
+.dashboard-bottom-column {
+    width: 100%;
+    max-width: 520px; /* SAME as goods-box width for perfect alignment */
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard-add-button {
+    padding: 10px 18px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-add-button:hover {
+    background-color: #357abd;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3); /* semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #e5ffe5; /* same as .form-message.success */
+    color: #2e7d32;           /* same as .form-message.success text */
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+}
